@@ -6,6 +6,7 @@ from __future__ import annotations
 import os
 from pathlib import Path
 
+import pybind11
 import torch
 from torch.utils.cpp_extension import load
 
@@ -27,6 +28,7 @@ def _load_ext():
         sources=[str(src)],
         extra_cuda_cflags=["-O3"],
         extra_cflags=["-O3"],
+        extra_include_paths=[pybind11.get_include()],
         verbose=bool(int(os.environ.get("FLASH_QLA_LEGACY_VERBOSE_BUILD", "0"))),
     )
     return _EXT

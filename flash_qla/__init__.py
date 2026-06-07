@@ -3,14 +3,18 @@
 
 __version__ = "0.1.0"
 
-from flash_qla.ops.gated_delta_rule.chunk import (
-    chunk_gated_delta_rule_fwd,
-    chunk_gated_delta_rule_bwd,
-    chunk_gated_delta_rule,
-)
+try:
+    from flash_qla.ops.gated_delta_rule.chunk import (
+        chunk_gated_delta_rule_fwd,
+        chunk_gated_delta_rule_bwd,
+        chunk_gated_delta_rule,
+    )
 
-__all__ = [
-    "chunk_gated_delta_rule_fwd",
-    "chunk_gated_delta_rule_bwd",
-    "chunk_gated_delta_rule",
-]
+    __all__ = [
+        "chunk_gated_delta_rule_fwd",
+        "chunk_gated_delta_rule_bwd",
+        "chunk_gated_delta_rule",
+    ]
+except (ImportError, ValueError):
+    # Hopper-only TileLang path unavailable on SM70/SM75; use legacy API instead.
+    __all__ = []
